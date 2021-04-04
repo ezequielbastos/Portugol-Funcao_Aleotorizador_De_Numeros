@@ -1,61 +1,31 @@
-algoritmo "Aleatorio"
-// ======================================================================== |
-// Função: Algoritmo para aleatorizar numeros sem repetição.
-// Descrição: Com este escript e posivel criar games de bingo e simular I.A
-//
-// AUTOR: Zack Bastos
-// Linkedin: www.linkedin.com/in/ezequiel-bastos-devjava/
-// ======================================================================== |
-var
-   Vet_AL, Vet_Verif: Vetor[1..10] de Inteiro
-   i, N_AL, QuantV: Inteiro
-inicio
- Timer (150)
-     Aleatorio On
-     Aleatorio 1,10
-     Leia (N_AL)
-     Aleatorio Off
-     LimpaTela
-     
-     Vet_Verif[1] <- N_AL
-     QuantV <- 1
-     
-     Repita
-     
-         Aleatorio On
-         Aleatorio 1,10
-         Leia (N_AL)
-         Aleatorio Off
-         LimpaTela
-          Timer (0)
-         Para i <- 1 ate 10 faca
-	          Vet_AL[i] <- N_AL
-         Fimpara
-          Timer (150)
-         Para i <- 1 ate (QuantV) faca
-           Se (Vet_AL[i] = Vet_Verif[i]) entao
-              QuantV <- QuantV + 1
-              QuantV <- QuantV - 1
-              Aleatorio On
-              Aleatorio 1,10
-              Leia (N_AL)
-              Aleatorio Off
-              limpaTela
-              Timer (0)
-              para i <- 1 ate 10 faca
-                Vet_AL[i] <- N_AL
-              Fimpara
-
-           Fimse
-         Fimpara
-          Timer (150)
-         QuantV <- QuantV + 1
-         Vet_Verif[QuantV] <- Vet_AL[i]
-    Ate (QuantV = 10)
-    
-    Para i <- 1 ate 10 faca
-       EscrevaL ("[",Vet_Verif[i],"]")
+Algoritmo "AleatorizandoSemRepetirN"
+// Descrição   : Este programa numeros sem que eles se repitam!
+// Autor(a)    : Zack Bastos
+Var
+    Vet_AL : vetor[0..10] de inteiro
+    i, j, controler, numAleatorio : Inteiro
+Inicio
+      //Timer (150)
+    Para i de 1 ate 10 faca
+         numAleatorio <- randi(99) //gera o número randomico
+         controler <- 0  //controlador para verificar se o numero já foi inserido
+         enquanto controler = 0 faca
+         controler <- 1
+           //bloco para verificar o vetor
+           Para j de 1 ate 10 faca
+                 Se (Vet_AL[i] = numAleatorio) entao //caso o numero já exista
+                    numAleatorio <- randi(99)  //gera o novo número randomico
+                    controler <- 0 //reinicia o controlador para verificar se o novo número existe
+                 Fimse
+           FimPara
+        FimEnquanto
+        //ao sair do enquanto, é garantido que o número não existe na matriz,
+        //então adiciona esse número a matriz.
+        Vet_AL[i] <- numAleatorio
     FimPara
-    
 
-fimalgoritmo
+    Para i de 1 ate 10 faca
+       escreval("Vet [",i,"] = ",Vet_AL[i])
+    Fimpara
+
+Fimalgoritmo
